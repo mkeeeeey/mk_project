@@ -1,0 +1,65 @@
+1. 기본 프로세스 정리
+	1) 초기 화면에 부품리스트와 비어있는 카트 화면
+		로딩..
+	2) 부품리스트의 category 변경시 부품리스트 변경
+	
+	3) 부품 클릭시, 카트에 부품 추가
+	
+	4) 카트의 부품 클릭시, 카트에서 제거
+	
+	
+2. 개발 순서..
+	1) DAO 구현
+		
+		select * from member2 where id=?
+	2) controller - 초기 화면 호출
+	3) 초기 jsp 화면..
+		- 카테고리 변경시 처리
+	4) controller - 요청값(카테고리)
+		- service단 호출
+		- dao단에서 새로운 list 가져오기
+	5) jsp 화면
+	 	- 카테고리에 맞는 새로운 list 화면 보여주기
+	 	
+	 	
+3. 주요 핵심 코딩
+	0) 사용할 파일
+		A01_AssemblyCtrl.java(controller)
+		A01_AssemblyService.java(service)
+		A01_AssemblyDao.java(dao) - public ArrayList<Part> partList = new ArrayList<Part>(카테고리); 
+		a01_assembly.jsp(view)
+	// 초기화면
+	1) sql
+		SELECT parts_img, parts_name, part_price, parts_no FROM product2
+		WHERE parts_mc = 'cpu'
+		AND parts_sc1 LIKE '%'||''||'%'
+		AND parts_sc2 LIKE '%'||''||'%'
+		AND parts_sc3 LIKE '%'||''||'%'
+		AND parts_sc4 LIKE '%'||''||'%'
+		AND parts_sc5 LIKE '%'||''||'%'
+		AND parts_sc6 LIKE '%'||''||'%';
+	2) dao
+		
+	3) controller1 (A01_AssemblyCtrl.java)
+		proc.equals("sch") 일 때
+		service.plist(request);
+		page = a01_assemble.jsp
+		
+	4) view1 (a01_assembly.jsp)
+		화면
+	
+	// 소분류 변경
+	1) sql
+		동일
+	2) dao
+	3) controller
+		Parts sch 객체에 소분류값을 넣어 전달
+	4) view
+	
+	// 대분류 변경
+	카트에서 대분류 클릭시 sch객체에 parts_mc 값만 넣어 전달
+	 
+	
+	
+	
+	

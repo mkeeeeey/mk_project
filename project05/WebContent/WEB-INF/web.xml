@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>jspexp</display-name>
+  <!-- 초기 설정값 선언 -->
+  <context-param>
+  	<description>설정값 1</description>
+  	<param-name>logEnabled</param-name>
+  	<param-value>true</param-value>
+  </context-param>
+   <context-param>
+  	<description>설정값 2</description>
+  	<param-name>debugLevel</param-name>
+  	<param-value>5</param-value>
+  </context-param> 
+  <context-param>
+  	<param-name>oraIp</param-name>
+	<param-value>211.238.140.48</param-value>  
+  </context-param> 
+  <context-param>
+  	<param-name>oraPort</param-name>
+	<param-value>1521</param-value>  
+  </context-param>  
+  <context-param>
+  	<param-name>oraSid</param-name>
+	<param-value>xe</param-value>  
+  </context-param>   
+  <context-param>  
+  	<param-name>oraUser</param-name>
+	<param-value>scott</param-value>  
+  </context-param>    
+  <context-param> 
+  	<param-name>oraPass</param-name>
+	<param-value>tiger</param-value>  
+  </context-param>   
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <!--서버 단위 에러 처리
+  404:해당 서버에 페이지가 존재하지 않을 때, 발생하는 에러 코드.
+  -->
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/a04_error/z02_404Error.jsp</location>
+  </error-page>
+  <!-- 
+  	ex) 
+  	excepton-type : 클래스 단위 예외 선언.
+  		java.lang.NullPointerException
+  		z03_nullError.jsp 
+   -->
+ 	<error-page>
+ 		<exception-type>java.lang.NullPointerException</exception-type>
+ 		<location>/a04_error/z03_nullError.jsp</location>
+ 	</error-page> 
+  
+  
+  
+</web-app>

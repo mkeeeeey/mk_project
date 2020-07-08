@@ -1,0 +1,80 @@
+1. top.jsp에서 고객센터 클릭 notice 컨트롤러로 이동
+2. proc가 notice일 때(초기값) service단에서 dao.getNoticeList 호출
+3. dao단 getNoticeList => select @@ from p5_notice
+4. ctrl단에서  request.setAttribute("nlist",service.getNoticeList());
+5. ctrl단에서 page="main/serviceCenter/notice.jsp"
+
+6. - notice.jsp
+	화면에 리스트 나오는지 확인.
+	<c:forEach var="notice" items="${nlist}">
+		<tr ondblclick="javascript:go(${notice.noti_no})">
+			<td align="center">${notice.noti_no}</td>
+			<td>${notice.noti_name}</td>
+			<td align="center">관리자</td>
+			<td align="center">${notice.noti_date}</td>
+		</tr>
+	</c:forEach>
+	<input type="hidden" name="proc" />
+	<input type="hidden" name="noti_no" />
+	
+	
+7. javascript
+	<javascript>
+		function go(no){
+			$("[name=proc]".val("noticeDetail");
+			$("[name=noti_no]").val(no);
+			$("form").submit();
+		}
+	</javascript>
+
+8. ctrl단
+	if(proc.equals("noticeDetail"){
+		request.setAttribute("",service...);
+		page = "main/service/noticeDetail.jsp"
+	}
+
+9. noticeDetail.jsp 화면단 확인
+10. goback-btn 버튼 클릭시 공지사항 목록으로
+	<javascript>
+		$(document).ready(function(){		
+			$(".goback-btn").click(function(){
+				$("[name=proc]").val("notice");
+				$("form").submit();
+			});
+		}
+	});
+	</javascript>
+
+
+11. notice.jsp 화면에서 .reg-btn버튼 클릭시
+	<javascript>
+	$(".reg-btn").click(function(){
+		$("[name=proc]").val("noticeReg");
+		$("form").submit();
+	});
+	
+	<c:if test="${mem.mem_id == 'admin'">
+		<input type="button" value="등록">
+	</c:if>
+	
+	
+12. ctrl단
+	if(proc.equals("noticeReg"){
+		page="main/service/noticeRef.jsp";
+	}
+
+13. noticeDetail.jsp
+	$(".applyBtn").click(function(){
+		$("[name=proc]").val("noticeIns");
+		$("form").submit();
+	});
+
+14. ctrl단
+	if(proc.equals("noticeIns"){
+		service.....
+		page="main/service/notice.jsp";
+	}
+
+
+
+

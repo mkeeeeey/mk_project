@@ -1,0 +1,95 @@
+1. 부품화면에서 부품을 보고 구매하기 버튼을 클릭
+
+2. p5_order테이블에 새로 하나의 객체가 생긴다.(insert문 사용)
+
+3. 새로 생긴 객체의 ord_no를 가져온다. (select문)
+
+4. p5_request 테이블에 ord_no, req_no,
+	 req_cnt를 추가하낟.(insert문)
+
+5. 결제창( p5_reqest, p5_order정보가져오기) (select문)
+
+6. 결제 방법 입력 (p5_pay insert)
+
+7. 결제완료 페이지 화면
+
+
+ctrl
+service.insOrd()
+service.selOrd()
+
+서비스단
+dao.인서트()
+int ord_no = dao.셀렉트문
+dao.인서트(request, ord_no)
+return dao.셀렉트문으로정보가져오기
+
+
+
+
+
+
+1. 컴퓨터화면에서 컴퓨터를 보고 구매하기 버튼을 크릭...
+...
+...
+...
+
+
+1. 상품화면에서 장바구니 추가 버튼 클릭
+	ArrayList<Request> favList = new ArrayList<Request>();
+	favList.add(new Request(req_no, req_cnt));
+	
+	if(proc.equals("addCart")){
+		service.addcart(request);
+	
+	}
+	
+	서비스단
+	public void addcart(Http....){
+		if(session.getAttribute("favList") == null){
+			만들기
+		}
+		favList.add()
+		session.setAttribute();
+	
+	}
+	
+	
+	if(proc.equals("cart")){
+		ArrayList<Request> favList = session.getAttrubute()
+		for(Request req : favList){
+			int req_no = req.req_no;
+			
+			request.getAttrubute("cart",service.req_no객체정보(이름,가격,이미지...))
+		}
+		
+	jsp
+		
+			
+			
+			
+			
+	
+	}
+	
+	
+	
+2. 장바구니 화면
+	favList에 있는 req_no를 사용하여 
+	name, price, cnt 불러오기(select)
+	
+3. 구매하기 버튼 클릭
+	주문번호 만들고
+	p5_request 테이블에 주문번호와 favList의 req_no를 이용해 
+	insert
+	p5_pay....
+	
+	
+	
+	
+	session.setAttribute("favItem",) 
+	내가선택한 상품의번호
+	
+	
+	
+	
