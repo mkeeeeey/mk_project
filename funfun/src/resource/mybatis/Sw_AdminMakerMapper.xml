@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<mapper namespace="funfun.repository.Sw_AdminMakerDao">
+	<resultMap type="AdminMaker" id="AdminMakerResult"/>
+	<!-- int AdminMakerCnt() 총 데이터 건수 -->
+	<select id="AdminMakerCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM maker
+		WHERE 1=1
+	</select>
+	
+	
+	<!-- ArrayList<AdminMaker> list(Paging sch) -->
+	<select id="list" resultMap="AdminMakerResult" parameterType="paging">
+		SELECT *
+		FROM ((SELECT rownum cnt, c.*
+			   FROM (SELECT  a.*, b.mem_name
+					 FROM maker a, MEMBER b
+					 WHERE a.MEM_CODE = b.mem_code
+					 ORDER BY maker_code DESC) c))
+		WHERE cnt BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	<!-- AdminMember detail(int mem_code) -->
+	<select id="detail" resultType="AdminMaker" parameterType="int">
+		SELECT  a.*, b.mem_name
+		 FROM maker a, MEMBER b
+		 WHERE a.MEM_CODE = b.mem_code
+		and a.maker_code = #{mem_code} 
+	</select>
+	
+	<!-- void update(AdminMaker upt) -->
+	<update id="update" parameterType="AdminMaker">
+		UPDATE MAKER
+		SET maker_curr = #{maker_curr}
+		WHERE maker_code = #{maker_code}
+	</update>
+	<!-- void update2(AdminMaker upt) -->
+	<update id="update2" parameterType="AdminMaker">
+		UPDATE MAKER
+		SET maker_curr = null
+		WHERE maker_code = #{maker_code}
+	</update>
+	
+
+</mapper>
+
+
+
+
+
+
+
+
+

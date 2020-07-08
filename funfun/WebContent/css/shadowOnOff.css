@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.shadowOn{
+			animation:shadow-ani1 1s forwards;
+    	}
+    	
+    	.shadowOff{
+    		animation:shadow-ani2 1s forwards;
+    	}
+    	
+    	@keyframes shadow-ani1{
+    		0%{
+    			
+    		}
+    		100%{
+    			max-width:1200px; padding-top:100px; -webkit-box-shadow: 0px -6px 23px 1px rgba(0,0,0,0.75);
+				-moz-box-shadow: 0px -6px 23px 1px rgba(0,0,0,0.75);
+				box-shadow: 0px -6px 23px 1px rgba(0,0,0,0.75); border-radius:15px; margin-top:120px; background-color:#fcfcfc;
+    		}
+    	}
+    	
+    	@keyframes shadow-ani2{
+    		0%{
+    			max-width:1200px; padding-top:100px; -webkit-box-shadow: 0px -6px 23px 1px rgba(0,0,0,0.75);
+				-moz-box-shadow: 0px -6px 23px 1px rgba(0,0,0,0.75);
+				box-shadow: 0px -6px 23px 1px rgba(0,0,0,0.75); border-radius:15px; margin-top:120px; background-color:#fcfcfc;
+    		}
+    		100%{
+    			
+    		}
+    	}

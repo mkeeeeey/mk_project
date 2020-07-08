@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+
+<mapper namespace="funfun.repository.MainRepo">
+	
+	<resultMap type="int" id="cnt"></resultMap>
+	<select id="verifyId" resultMap="cnt" parameterType="funfun.vo.MemberLogin">
+	
+ 	select count(*) cnt from member where mem_email=#{mem_email} and mem_pw=#{mem_pw}
+	
+	</select>
+	
+	<resultMap type="funfun.vo.MemberInfo" id="memberInfo"></resultMap>
+	<select id="getMemberInfo" resultMap="memberInfo" parameterType="String">
+		select mem_code, mem_email, mem_name, mem_profile, mem_phoneno, mem_balance, mem_favor from member where mem_email=#{email}
+	</select>
+	
+	
+	<select id="signupIdCheck" resultMap="cnt" parameterType="String">
+ 	select count(*) cnt from member where mem_email=#{mem_email}
+	</select>
+	
+	<insert id="insertMember" parameterType="funfun.vo.MemberInfo">
+		insert into member(mem_code, mem_email, mem_pw, mem_name, mem_favor) values(member_seq.nextval, #{mem_email},
+			#{mem_pw}, #{mem_name}, #{mem_favor})
+	</insert>
+	
+	<update id="changePass" parameterType="funfun.vo.MemberInfo">
+		update member set mem_pw = #{mem_pw} where mem_email=#{mem_email}
+	</update>
+	
+	<select id="isMaker" parameterType="int" resultType="int">
+		select count(*) from maker where mem_code = #{code}
+	</select>
+	
+	<select id="getMakerCode" parameterType="int" resultType="int">
+		select maker_code from maker where mem_code = #{code}
+	</select>
+	
+	<select id="getNameByEmail" parameterType="String" resultType="String">
+		select mem_name from member where mem_email=#{email}
+	</select>
+	
+	<resultMap type="java.lang.Integer" id="IntegerArray"></resultMap>
+	<select id="getFavorCodeListByEmail" parameterType="String" resultMap="IntegerArray">
+		select pro_code from favor
+	</select>
+	
+	<select id="getFavorByCode" parameterType="java.lang.Integer" resultType="funfun.vo.Favor">
+		SELECT pro_title proTitle, cate_title cateTitle,
+		pro_finish_date-current_date dDay, PRO_IMAGE image, pro_target, pro_money  FROM project WHERE pro_code=#{code}
+	</select>
+	
+	<select id="getBalanceByEmail" parameterType="String" resultType="int">
+		SELECT mem_balance FROM member where mem_email=#{email}
+	</select>
+	
+	<select id="getMemCodeByEmail" parameterType="String" resultType="int">
+		SELECT mem_code FROM MEMBER WHERE mem_email=#{email}
+	</select>
+	
+	<select id="getUsedByMemCode" parameterType="int" resultType="int">
+		SELECT nvl(sum(fund_price* fund_cnt), 0) FROM FUNDING WHERE mem_code=#{code}
+	</select>
+	
+	<resultMap type="funfun.vo.OptCodeAndCnt" id="optCodeAndCnt"></resultMap>
+	<select id="getOptCodeAndCntByMemCode" parameterType="int" resultMap="optCodeAndCnt">
+		SELECT opt_code optionCode, fund_cnt cnt FROM funding WHERE mem_code=#{mem_code}
+	</select>
+	
+	<select id="getOptionInfoByOptCode" parameterType="int" resultType="funfun.vo.MyFundingInfo">
+		SELECT b.pro_title title, a.opt_detail option0, a.opt_price unitPrice
+		FROM PRO_OPTION a, project b  WHERE a.opt_code=#{opt_code} AND b.PRO_CODE=a.PRO_CODE
+	</select>
+	
+	<select id="getActiveInfo" parameterType="funfun.vo.MemberInfo" resultType="int">
+		SELECT current_date-nvl(mem_curr,to_date('1980-01-01', 'yyyy-MM-DD')) active FROM MEMBER WHERE mem_email=#{mem_email} AND mem_pw=#{mem_pw}
+	</select>
+	
+	<resultMap type="funfun.vo.NotificationInfo" id="NotificationResultMap"></resultMap>
+	<select id="getProjectOrStoreCodeListByMemCode" parameterType="int" resultMap="NotificationResultMap">
+		SELECT nvl(pro_code, sto_code) code, qna_detail title FROM qna WHERE mem_code=#{mem_code} AND qna_chk = 'N' AND qna_ans IS not null
+	</select>
+	
+	 <select id="getFavorProjectCodeListByMemCode" parameterType="int" resultMap="IntegerArray">
+	 	SELECT pro_code FROM favor WHERE mem_code =#{mem_code}
+	 </select>
+	 
+	 <select id="getProjectInfoLeft7DaysOrLessByProjectCode" parameterType="int" resultMap="NotificationResultMap">
+	 	SELECT pro_title title, pro_code code FROM project WHERE pro_code=#{code} AND PRO_FINISH_DATE-CURRENT_DATE Between 0 and 7
+	 </select>
+	 
+	
+	 <select id="getStoreOptNoAndCnt" parameterType="int" resultMap="optCodeAndCnt">
+	 	SELECT sto_opt_code optionCode, sto_order_cnt cnt, sto_order_curr state FROM STORE_ORDER WHERE mem_code=#{mem_code}
+	 </select>
+	 
+	 <select id="getStoreInfo" parameterType="int" resultType="funfun.vo.StoreTitleImageDetailPrice">
+	 	SELECT nvl(b.sto_title, ' ') title, nvl(b.sto_image, ' ') image, nvl(a.sto_opt_detail, ' ') detail, nvl(a.sto_opt_price, 0) price FROM STORE_OPTION a, store b
+	 	WHERE a.STO_CODE =b.sto_code AND STO_OPT_CODE=#{optcode}
+	 </select>
+	 
+	
+</mapper>

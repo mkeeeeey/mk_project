@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+	
+<mapper namespace="funfun.repository.KB_RSPayReposi">
+	<insert id="payInsert" parameterType="storePay">
+		INSERT INTO STORE_ORDER(STO_ORDER_CODE, MEM_CODE , STO_OPT_CODE , STO_ORDER_CNT ,
+		STO_ORDER_PRICE , STO_ORDER_CURR, sto_order_post, STO_ORDER_ADDRESS ,
+		STO_ORDER_RECEIVER , STO_ORDER_PHONENO, STO_ORDER_ASK , STO_RECEIVE_DATE,STO_ORDER_DATE ) 
+		values(store_order_seq.nextval,#{mem_code}, #{sto_opt_code}, #{pay_cnt}, 
+		#{pay_price}, '주문완료', #{pay_zipcode}, #{pay_addr}, #{pay_name}, #{pay_phone}, #{pay_ship_req},
+		current_date+3, current_date)
+	</insert>
+	
+	<update id="UptMemBalance" parameterType="storePay">
+		update member set mem_balance = mem_balance - #{pay_price} where mem_code = #{mem_code}
+	</update>
+	
+	<select id="payCode" parameterType="int" resultType="int">
+		select max(sto_order_code) sto_order_code from store_order where mem_code = #{mem_code}
+	</select>
+	
+	<insert id="InsertBalance" parameterType="storePay">
+		INSERT INTO balance values(balance_seq.nextval, #{mem_code}, '스토어구매', #{sto_order_code}, #{pay_price}, CURRENT_date)
+	</insert>
+</mapper>

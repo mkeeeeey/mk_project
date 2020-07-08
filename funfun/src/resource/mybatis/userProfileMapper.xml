@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<mapper namespace="funfun.repository.sh_profileEditReposi">
+
+ 	<resultMap type="userprofile" id="UserProfileResult"/>
+ 	<select id="mlist" resultMap="UserProfileResult" 
+ 		parameterType="userprofile">
+		SELECT MEM_FAVOR memFavor, MEM_POST pay_zipcode,MEM_ADDRESS pay_addr,mem_profile memProfile, mem_email memEmail,MEM_PHONENO memPhone,mem_address memAdr, MEM_FAVOR memFavor FROM MEMBER WHERE MEM_EMAIL = #{memEmail}
+ 	</select>
+ 	
+ 	<update id="changeProfile" parameterType="userprofile">
+	    UPDATE member
+		SET MEM_PHONENO=#{memPhone,jdbcType=VARCHAR},MEM_ADDRESS=#{pay_addr,jdbcType=VARCHAR},MEM_POST=#{pay_zipcode,jdbcType=VARCHAR},MEM_FAVOR = #{memFavor}, mem_profile = #{memProfile}
+		WHERE MEM_EMAIL = #{memEmail,jdbcType=VARCHAR}
+ 	</update>
+	
+</mapper>	

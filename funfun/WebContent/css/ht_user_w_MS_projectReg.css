@@ -1,0 +1,183 @@
+@charset "UTF-8";
+
+details > summary::-webkit-details-marker {
+	display: none
+}
+
+.btn_custom{
+	 background-color:rgb(255,150,0);
+	 color:white;
+	 font-weight:bold;
+}
+
+.sub_gray_font{
+	color:#787878;
+	font-weight:bold;
+}
+
+.sub_gray_font_big{
+	color:#787878;
+	font-weight:bold;
+	font-size:25px;
+}
+
+.display_item {
+  display: block;
+}
+
+.item__img{
+	height:180px; 
+	width:320px;
+}
+
+.item__title {
+  color: black;
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: justify;
+}
+
+.item__category {
+  font-size: 12px;
+}
+
+.item__money {
+  float: right;
+  color: orange;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+
+.reg_item_container{
+	width:60%;
+	height:65px;
+	vertical-align:middle;
+	font-weight:bolder;
+	padding:10px 20px 10px 20px;
+	margin:20px 0px 20px 0px;
+	border-left:solid 5px #FF9E00;
+	border-right:solid #E6EAED;
+	border-top:solid #E6EAED;
+	border-bottom:solid #E6EAED;
+	background-color:none;
+}
+
+.reg_content_title{
+	color:#787878;
+	font-weight:bold;
+	font-size:17px
+}
+
+.reward_reg_subTitle{
+	padding:10px 0px 10px 0px;
+	vertical-align:middle;
+}
+
+.reward_reg_content_container1{
+	width:28%;
+	height:100%;
+	vertical-align:middle;
+	display:inline-block;
+	font-weight:bold;
+}
+
+.reward_reg_content_container2{
+	width:68%;
+	display:inline-block;
+}
+
+
+.regAnswerBtn{
+	padding:0;
+	width:80px;
+	height:30px;
+	vertical-align:middle;
+	text-align:center;
+}
+
+.optUnitContainer{
+	display:inline-block;
+	width:280px;
+	margin:10px;
+	padding:20px;
+	border:solid 2px #EAEAEA;
+}
+
+
+.optUnitIntro{
+	text-align:center;
+	color:#787878;
+	font-weight:900;
+	font-size:20px;
+	padding:0px 0px 10px 0px;
+}
+
+.optUnitPrice{
+	margin:10px 0px 10px 0;
+	font-weight:900;
+	font-size:18px;
+	}
+
+.optUnitTitle{
+	margin:10px 0px 10px 0;
+	font-size:12px;
+	}
+
+.optUnitDetail{
+	margin:10px 0px 10px 0;
+	font-size:12px;
+	}
+
+.optUnitCondition{
+	margin:10px 10px 10px 0;
+	font-size:12px;
+	}
+
+.optUnitDeliver{
+	margin:10px 0px 10px 0;
+	font-size:12px;
+	}
+
+.optUnitDeliverDate{
+	margin:10px 0px 10px 0;
+	font-size:12px;	
+}
+
+.riskUnitContainer{
+	display:inline-block;
+	width:280px;
+	margin:10px;
+	padding:20px;
+	border:solid 2px #EAEAEA;	
+}
+.riskUnitTitle{
+	margin:10px 0px 10px 0;
+	font-weight:900;
+	font-size:18px;
+}
+.riskUnitDetail{
+	margin:10px 0px 10px 0;
+	font-size:12px;	
+}
+
+.myProjectFunction{
+	padding:5px 0px 5px 0px;
+	text-align:center;
+	font-size:20px;
+	font-weight:900;
+}
+
+.beforeReg{
+	margin-left:10px;
+	color:#ffa94a;
+	font-weight:bold;
+	}
+
+.afterReg{
+	margin-left:10px;
+	color:#787878;
+	font-weight:bold;
+	font-sixe:7px
+	}

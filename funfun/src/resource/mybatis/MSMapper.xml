@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+
+<mapper namespace="funfun.repository.HT_MSReposi">
+	
+	<resultMap type="makerstudio" id="msResult"/>
+	<resultMap type="storeQnA" id="qnaResult"/>	
+	<resultMap type="project" id="proResult"/>
+	<resultMap type="storeOrder" id="storeOrderResult"/>
+	<resultMap type="store" id="storeResult"/>
+	<resultMap type="funfun.vo.MemberInfo" id="memberInfo"/>
+	
+	<insert id="regMaker" parameterType="makerstudio">
+	INSERT INTO MAKER(MAKER_CODE, MEM_CODE, MAKER_TYPE, MAKER_NAME)
+	VALUES(maker_seq.nextval, #{mem_code}, #{maker_type}, #{maker_name})
+	</insert>
+	
+	<select id="makerInfo" resultType="makerstudio" parameterType="int">
+	SELECT * FROM MAKER
+	WHERE MEM_CODE = #{mem_code}
+	</select>
+	
+	   
+	<update id="makerInfoUpt" parameterType="makerstudio">
+	UPDATE MAKER
+	SET MAKER_NAME = #{maker_name},
+		MAKER_email = #{maker_email},
+		MAKER_type = #{maker_type}
+	WHERE MEM_CODE = #{mem_code}
+	</update>
+	
+	<select id="myProjectList" resultMap="proResult" parameterType="project">
+	SELECT * FROM PROJECT
+	WHERE MAKER_CODE =( 
+	SELECT MAKER_CODE
+	FROM MAKER 
+	WHERE MEM_CODE = #{mem_code})
+	</select>
+	
+	
+	<select id="myProjectQnaList" resultMap="qnaResult" parameterType="int">
+	SELECT a.*, b.mem_name
+	FROM QNA a, "MEMBER" b
+	WHERE a.PRO_CODE = #{pro_code}
+	AND b.MEM_CODE = a.MEM_CODE
+	</select>
+	
+
+	<select id="myStoreManage" resultMap="storeOrderResult" parameterType="storeOrder">
+	SELECT *
+	FROM STORE_ORDER
+	WHERE STO_OPT_CODE IN (
+	SELECT STO_OPT_CODE
+	FROM STORE_OPTION
+	WHERE STO_CODE = #{STO_CODE})
+	</select>
+	
+	<select id="getProjectInfo" resultMap="proResult" parameterType="int">
+	SELECT *
+	FROM PROJECT
+	WHERE PRO_CODE = #{pro_code}
+	</select>
+	
+	<select id="proQnAList" resultMap="qnaResult" parameterType="int">
+	SELECT * FROM QNA
+	WHERE PRO_CODE = #{pro_code}
+	</select>
+	
+	<update id="proQnAAnsReg" parameterType="storeQnA">
+	UPDATE QNA
+	SET QNA_ANS = #{qna_ans},
+		QNA_ANS_REG_DATE = sysdate
+	WHERE QNA_CODE = #{qna_code}
+	</update>
+	
+	<delete id="projectCancel" parameterType="int">
+	DELETE FROM PROJECT
+	WHERE pro_code = #{pro_code}
+	</delete>
+	
+	<select id="isStoOpen" resultType="int" parameterType="int">
+	SELECT count(*) cnt FROM STORE
+	WHERE PRO_CODE = #{pro_code}
+	</select>
+	
+	<select id="getStoCode" resultType="int" parameterType="int">
+	SELECT STO_CODE FROM STORE
+	WHERE PRO_CODE = #{pro_code}
+	</select>
+	
+	<select id="getStoRegDate" resultType="string" parameterType="int">
+	SELECT STO__REG_DATE FROM STORE
+	WHERE pro_code = #{pro_code}
+	</select>
+	
+	
+	<select id="getMemberInfo" resultMap="memberInfo" parameterType="String">
+		select mem_code, mem_email, mem_name, mem_profile, mem_phoneno, mem_balance from member where mem_email=#{email}
+	</select>
+	
+	<select id="getMakerCode" parameterType="int" resultType="int">
+		select maker_code from maker where mem_code = #{code}
+	</select>
+	
+	<select id="isMaker" parameterType="int" resultType="int">
+		select count(*) from maker where mem_code = #{code}
+	</select>
+	
+</mapper>

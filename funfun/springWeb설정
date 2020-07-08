@@ -1,0 +1,34 @@
+1. Dynamic Web프로젝트 생성
+
+2. 필요한 lib
+	1) maven에서 pom.xml로 설정 후, 다운받고 설정.
+	2) 필요한 lib 파일을 WebContent\WEB-INF\lib에 설정
+
+3. 환경 설정 형식
+	1) web.xml --> 공통 container @@@.xml 설정
+	2) web.xml --> 공통 container @@@.java 설정.
+
+4. web.xml
+	1) web.xml
+		- url을 통해서 스프링의 front controller 호출 형식
+			@@@.do를 하면 스프링을 시작하겠다고 선언..
+		- 스프링에서 사용할 container 파일에 대한 설정.
+		- 요청에 대한 한글 encoding방식 설정.,
+	2) dispatcher.xml
+		- controller/service/dao 자동 호출 설정.
+		- annotation 형식에 대한 선언
+		- viewer에 대한 호출 방식 선언..
+
+5. 초기 controller 호출.
+	1) view에서 사용할 내용 공통 css/img/js 설정.
+	2) 화면단 호출 처리..
+6. 데이터 베이스 설정 방식
+	1) 공통 호출 정보 파일 생성
+	2) dispatcher.xml
+		- DB 정보 설정.
+		- mybatis lib 호출 정보 처리.
+		- 공통 dao 인터페이스 위치 설정.
+		- 공통 spring-mybatis.xml 설정
+		- XXXmapper.xml 설정.
+	3) dao --> 공통 spring-mybatis.xml
+		- XX

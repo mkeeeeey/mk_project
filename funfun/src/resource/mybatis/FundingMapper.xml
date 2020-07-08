@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+
+<mapper namespace="funfun.repository.MK_FundingReposi">
+	
+	<resultMap type="project" id="projectResult"/>
+	<!-- int totCnt() 총 데이터 건수 -->
+	<select id="projcnt" resultType="int" parameterType="projSch">
+		SELECT COUNT(*)
+		FROM (SELECT a.*, NVL(round(a.PRO_MONEY/a.PRO_TARGET*100), 0) percent, CEIL(a.pro_finish_date - current_date) dday, b.maker_name, b.MAKER_PROFILE  
+				FROM project a, MAKER b
+				WHERE a.MAKER_CODE = b.MAKER_CODE AND PRO_CURR = '정상'
+			<if test="cate_title!=null and cate_title!= ''">
+				and cate_title like '%' || #{cate_title} ||'%'
+			</if>
+			<if test="proday=='ing' or proday==null or proday==''">
+				AND CEIL(a.pro_finish_date - current_date) <![CDATA[>]]> 0
+				AND PRO_START_DATE <![CDATA[<]]>  CURRENT_DATE
+			</if>
+			<if test="proday=='come'">
+				AND CEIL(a.pro_finish_date - current_date) <![CDATA[>]]> 0
+				AND PRO_START_DATE <![CDATA[>]]>  CURRENT_DATE
+			</if>
+			<if test="proday=='end'">
+				AND CEIL(a.pro_finish_date - current_date) <![CDATA[<]]>  0
+			</if>
+			<if test="sort=='recent'">
+				ORDER BY PRO_START_DATE DESC
+			</if>
+			<if test="sort=='popluar'">
+				ORDER BY percent DESC
+			</if>
+			<if test="sort=='amount'">
+				ORDER BY pro_target DESC
+			</if>
+			<if test="sort=='closing'">
+				ORDER BY dday ASC
+			</if>)
+		WHERE 1=1
+		<if test="projectsch!=null and projectsch!=''">
+			and (pro_title like '%'||#{projectsch}||'%'
+			or pro_keyword like '%'||#{projectsch}||'%'
+			or maker_name like '%'||#{projectsch}||'%')
+		</if>
+	</select>
+	<!-- 프로젝트 리스트 -->
+	<select id="projectList" resultMap="projectResult" parameterType="projSch">
+		SELECT *
+		FROM (SELECT rownum cnt, c.*
+			FROM (SELECT a.*, NVL(round(a.PRO_MONEY/a.PRO_TARGET*100), 0) percent, CEIL(a.pro_finish_date - current_date) dday, b.maker_name, b.MAKER_PROFILE  
+				FROM project a, MAKER b
+				WHERE a.MAKER_CODE = b.MAKER_CODE AND PRO_CURR = '정상'
+			<if test="cate_title!=null and cate_title!= ''">
+				and cate_title like '%' || #{cate_title} ||'%'
+			</if>
+			<if test="proday=='ing' or proday==null or proday==''">
+				AND CEIL(a.pro_finish_date - current_date) <![CDATA[>]]> 0
+				AND PRO_START_DATE <![CDATA[<]]>  CURRENT_DATE
+			</if>
+			<if test="proday=='come'">
+				AND CEIL(a.pro_finish_date - current_date) <![CDATA[>]]> 0
+				AND PRO_START_DATE <![CDATA[>]]>  CURRENT_DATE
+			</if>
+			<if test="proday=='end'">
+				AND CEIL(a.pro_finish_date - current_date) <![CDATA[<]]>  0
+			</if>
+			<if test="sort=='recent'">
+				ORDER BY PRO_START_DATE DESC
+			</if>
+			<if test="sort=='popluar'">
+				ORDER BY percent DESC
+			</if>
+			<if test="sort=='amount'">
+				ORDER BY pro_target DESC
+			</if>
+			<if test="sort=='closing'">
+				ORDER BY dday ASC
+			</if>) c
+			WHERE 1=1
+		<if test="projectsch!=null and projectsch!=''">
+			and (pro_title like '%'||#{projectsch}||'%'
+			or pro_keyword like '%'||#{projectsch}||'%'
+			or maker_name like '%'||#{projectsch}||'%')
+		</if>)
+		WHERE cnt BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 프로젝트 상세보기 -->
+	<select id="detail" resultType="project" parameterType="int">
+		SELECT a.*, round(a.PRO_MONEY/a.PRO_TARGET*100) percent, CEIL(a.pro_finish_date - current_date) dday, b.maker_name FROM project a, MAKER b
+		WHERE a.MAKER_CODE = b.MAKER_CODE
+		AND PRO_CODE = #{pro_code}
+	</select>
+	<!-- 프로젝트 옵션 -->
+	<resultMap type="projectOpt" id="proOptResult"/>
+	<select id="proOptList" resultMap="proOptResult" parameterType="int">
+		SELECT * FROM PRO_OPTION
+		WHERE PRO_CODE = #{pro_code}
+	</select>
+	<!-- 선택옵션 -->
+	<select id="option" resultType="projectOpt" parameterType="int">
+		SELECT * FROM PRO_OPTION
+		WHERE OPT_CODE = #{opt_code}
+	</select>
+	<!-- 관심프로젝트 등록 여부 -->
+	<select id="ckfavor" resultType="int" parameterType="project">
+		SELECT count(*)
+		FROM FAVOR
+		WHERE MEM_CODE = #{mem_code}
+		AND PRO_CODE = #{pro_code}
+	</select>
+	<!-- 관심프로젝트 등록 -->
+	<insert id="insFavor" parameterType="project">
+		INSERT INTO FAVOR VALUES(#{mem_code}, #{pro_code})
+	</insert>
+	<!-- 신고 리스트 - 관리자 -->
+	<resultMap type="report" id="reportResult"/>
+	<select id="reportcnt" resultType="int" parameterType="report">
+		SELECT COUNT(*)
+		FROM (SELECT r.*, a.pro_title, b.mem_name 
+			FROM project a, member b, report r
+			WHERE r.pro_code=a.pro_code AND r.mem_code = b.mem_code
+			ORDER BY report_code DESC)
+		WHERE 1=1
+	</select>
+	<select id="reportList" resultMap="reportResult" parameterType="paging">
+		SELECT * FROM (select rownum cnt, c.*
+		from (SELECT r.*, a.pro_title, b.mem_name 
+			FROM project a, member b, report r
+			WHERE r.pro_code=a.pro_code AND r.mem_code = b.mem_code
+			ORDER BY report_code DESC) c)
+		WHERE cnt BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 신고 상세보기 -->
+	<select id="report" resultType="report" parameterType="int">
+		SELECT r.*, a.pro_title, b.mem_name 
+		FROM project a, member b, report r
+		WHERE r.pro_code=a.pro_code AND r.mem_code = b.mem_code
+		AND report_code = #{report_code}
+	</select>
+	<!-- 신고 내역 확인 -->
+	<update id="uptReport" parameterType="report">
+		UPDATE REPORT SET REPORT_CURR = #{report_curr}
+		WHERE REPORT_CODE = #{report_code}
+	</update>
+	<!-- 프로젝트 신고 -->
+	<insert id="insReport" parameterType="report">	
+		INSERT INTO REPORT VALUES (REPORT_SEQ.nextval, #{mem_code}, #{pro_code}, #{report_detail}, #{report_img}, current_date,'접수')
+	</insert>
+	<!-- 프로젝트 문의리스트 -->
+	<resultMap type="inquiry" id="inquiryResult"/>
+	<select id="inquiryList" resultMap="inquiryResult" parameterType="int">
+		SELECT QNA_CODE, PRO_CODE, mem_name, QNA_DETAIL, QNA_REG_DATE, QNA_OPEN, QNA_ANS, QNA_ANS_REG_DATE FROM QNA a, MEMBER b
+		WHERE a.MEM_CODE = b.MEM_CODE AND PRO_CODE = #{pro_code}
+		ORDER BY QNA_CODE DESC
+	</select>
+	<!-- 프로젝트 문의하기 -->
+	<insert id="inquiry" parameterType="inquiry">
+		INSERT INTO QNA(QNA_CODE, PRO_CODE, MEM_CODE, QNA_DETAIL, QNA_REG_DATE, QNA_OPEN)
+		VALUES (qna_seq.nextval, #{pro_code}, #{mem_code}, #{qna_detail}, current_date, #{qna_open})
+	</insert>
+	<!-- 프로젝트 문의 답변 -->
+	<update id="answer" parameterType="inquiry">
+		UPDATE QNA
+		SET QNA_ANS = #{qna_ans}, QNA_ANS_REG_DATE = current_date, QNA_CHK = 'N'
+		WHERE QNA_CODE = #{qna_code}
+	</update>
+	<!-- 예치금 잔액 조회 -->
+	<select id="balance" resultType="int" parameterType="int">
+		SELECT mem_balance FROM member 
+		WHERE mem_code = #{mem_code}
+	</select>
+	<!-- 펀딩하기 -->
+	<insert id="funding" parameterType="funding">
+		INSERT INTO FUNDING VALUES(FUNDING_SEQ.nextval, #{mem_code}, current_date, #{opt_code}, #{fund_price}, 
+		#{fund_cnt}, #{fund_opt_detail}, #{fund_post}, #{fund_address}, #{fund_receiver}, '펀딩중', #{fund_rec_tel}, #{fund_tot})
+	</insert>
+	<!-- 펀딩하기 - 프로젝트 현재 펀딩 금액 변경 -->
+	<update id="uptMoney" parameterType="funding">
+		UPDATE PROJECT
+		SET PRO_MONEY = PRO_MONEY + #{fund_price}
+		WHERE PRO_CODE = #{pro_code}
+	</update>
+	<!-- 펀딩하기 - 예치금사용내역 -->
+	<insert id="useBalance" parameterType="funding">
+		INSERT INTO balance values(balance_seq.nextval, #{mem_code}, '펀딩투자', FUNDING_SEQ.currval, #{fund_tot}, current_date)
+	</insert>
+	<!-- 펀딩하기 - 회원 예치금 잔액 변경 -->
+	<update id="uptBalance" parameterType="funding">
+		UPDATE MEMBER 
+		SET MEM_BALANCE = MEM_BALANCE - #{fund_tot}
+		WHERE MEM_CODE = #{mem_code}
+	</update>
+	<!-- 제한수량 변경 -->
+	<update id="uptCnt" parameterType="funding">
+		UPDATE PRO_OPTION
+		SET OPT_MAX = OPT_MAX - 1
+		WHERE OPT_CODE = #{opt_code}
+	</update>
+	
+</mapper>

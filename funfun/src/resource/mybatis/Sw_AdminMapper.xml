@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<mapper namespace="funfun.repository.Sw_AdminDao">
+	<resultMap type="Admin" id="AdminResult"/>
+	
+	<!-- int verifyAdmId(Admin admin)-->
+	<select id="verifyAdmId" resultType="int" parameterType="Admin">
+	SELECT count(*) FROM admin
+	WHERE admin_code = #{admin_code}
+	AND admin_pw=#{admin_pw}
+	</select>
+	
+	
+	
+	<!-- int AdminCnt() 총 데이터 건수 -->
+	<select id="AdminCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM admin
+		WHERE 1=1
+	</select>
+	
+	
+	<!-- ArrayList<Admin> list(Paging sch) -->
+	<select id="list" resultMap="AdminResult" parameterType="paging">
+		SELECT *
+		FROM (SELECT rownum cnt, a.*
+			  FROM (SELECT *
+					FROM admin 
+					ORDER BY ADMIN_AUTH , ADMIN_CODE) a)
+		WHERE cnt BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- void insert(Admin ins) -->
+	<insert id="insert" parameterType="Admin">
+		INSERT INTO ADMIN
+		VALUES (#{admin_code},#{admin_pw},#{admin_name},#{admin_auth})
+	</insert>
+	
+	
+	<!-- Admin detail(int admin_code) -->
+	<select id="detail" resultType="Admin" parameterType="int">
+		SELECT *
+		FROM admin
+		WHERE admin_code = #{admin_code} 
+	</select>
+	
+	
+	<!-- void update(Admin upt) -->
+	<update id="update" parameterType="Admin">
+		UPDATE admin
+		SET admin_name = #{admin_name},
+			<if test="admin_pw != null">
+			admin_pw = #{admin_pw},
+			</if>
+			admin_auth = #{admin_auth}
+		WHERE admin_code = #{admin_code}
+	</update>
+	<!-- void delete(int admin_code) -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM admin 
+		WHERE admin_code = #{admin_code}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+

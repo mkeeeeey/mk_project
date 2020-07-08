@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<mapper namespace="funfun.repository.Sw_FaqDao">
+	<resultMap type="Faq" id="FaqResult"/>
+	<!-- int totCnt() 총 데이터 건수 -->
+	<select id="faqtotCnt" resultType="int" parameterType="paging">
+		SELECT COUNT(*) 
+		FROM FAQ
+		WHERE (faq_title LIKE '%'||#{title}||'%'
+		OR FAQ_DETAIL LIKE '%'||#{title}||'%')
+	</select>
+	
+	<!-- ArrayList<Faq> list(Paging sch) -->
+	<select id="list" resultMap="FaqResult" parameterType="paging">
+		SELECT *
+		FROM(SELECT rownum cnt, c.*
+			 FROM (SELECT a.*, b.ADMIN_NAME 
+					FROM FAQ a, ADMIN b
+					WHERE a.ADMIN_CODE = b.ADMIN_CODE 
+					AND (faq_title LIKE '%'||#{title}||'%'
+					OR FAQ_DETAIL LIKE '%'||#{title}||'%')
+					ORDER BY FAQ_CODE DESC) c)
+		WHERE cnt BETWEEN #{start} AND #{end}
+	</select>
+	<!-- void insert(Faq ins) -->
+	<insert id="insert" parameterType="Faq">
+		INSERT INTO FAQ 
+		VALUES(faq_seq.nextval,#{faq_title},#{faq_detail},current_date, NULL, #{admin_code})
+	</insert>
+	
+	
+	<!-- Faq detail(int noti_code) -->
+	<select id="detail" resultType="Faq" parameterType="int">
+		SELECT rownum cnt, a.*, b.ADMIN_NAME
+		FROM FAQ a, ADMIN b
+		WHERE a.ADMIN_CODE = b.ADMIN_CODE
+		AND faq_code = #{faq_code}
+	</select>
+	<!-- void update(Faq upt) -->
+	<update id="update" parameterType="Faq">
+		UPDATE FAQ
+		SET faq_title = #{faq_title},
+			faq_detail = #{faq_detail},
+			faq_upt_date = CURRENT_DATE,
+			admin_code = #{admin_code}
+		WHERE faq_code = #{faq_code}
+	</update>
+	<!-- void delete(int faq_code) -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM FAQ 
+		WHERE faq_code = #{faq_code}
+	</delete>
+	
+	
+
+	
+
+
+
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+

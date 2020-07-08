@@ -1,0 +1,345 @@
+.profile__detail {
+  color: black;
+  margin-right: 15px;
+  margin-bottom: 50px;
+}
+
+.profile__name {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.profile__level {
+  position: relative;
+  top: 5px;
+  font-size: 15px;
+}
+
+.profile__img {
+  height: 120px;
+  width: 120px;
+  border-radius: 200px;
+  float: right;
+  position: relative;
+  bottom: 50px;
+}
+
+.profile__times--table {
+  margin: 20px 0 45px 13px;
+}
+
+.profile__times--num {
+  color: orange;
+  font-size: 35px;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.profile__times--num:hover {
+  text-decoration: underline;
+}
+
+.profile__times--text {
+  font-size: 14px;
+  padding-right: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.profile__times--text:hover {
+  text-decoration: underline;
+}
+
+.profile__choice {
+  font-size: 14px;
+  font-weight: bold;
+  padding-right: 18px;
+  cursor: pointer;
+}
+
+.profile__choice--table {
+  margin-bottom: 20px;
+  margin-left: 13px;
+}
+
+.clicked {
+  height: 3px;
+  width: 84px;
+  background-color: orange;
+  margin: auto;
+}
+
+.emptyMsg {
+  margin-left: 430px;
+  margin-top: 200px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.thumbnail {
+  cursor: pointer;
+}
+
+.item {
+  margin-top: 25px;
+}
+
+.item__title {
+  color: black;
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: justify;
+}
+
+.item__category {
+  font-size: 12px;
+}
+
+.item__money {
+  float: right;
+  color: orange;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.funding {
+  padding: 25px;
+  margin: 30px 0;
+  background-color: white;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px 0px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px 0px;
+}
+
+.funding__state {
+  color: #24acf2;
+  font-weight: bold;
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+
+.funding__fund-date {
+  color: gray;
+  text-align: right;
+}
+
+.funding__name {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+
+.funding__name:hover {
+  text-decoration: underline;
+}
+
+.funding__company {
+  color: gray;
+  padding-bottom: 5px;
+  font-size: 12px;
+}
+
+.funding__detail--text {
+  text-align: right;
+}
+
+.funding--hr {
+  margin: 5px 0 10px;
+}
+
+.funding--btn {
+  font-weight: bold;
+  margin-top: 15px;
+  height: 45px;
+}
+
+.funding__alert {
+  color: #f50202;
+  padding-top: 20px;
+  font-weight: bold;
+}
+
+.trans__date {
+  font-size: 14px;
+  color: orange;
+  font-weight: bold;
+}
+
+.tooltip-inner {
+  white-space: pre-wrap;
+  text-align: left;
+  line-height: 25px;
+  width: 110%;
+  padding-left: 20px;
+}
+
+.display_item {
+  display: block;
+}
+
+.funding_display {
+  display: none;
+}
+
+.trans_display {
+  display: none;
+}
+
+.modal-content {
+  position: relative;
+  top: 100px;
+  padding: 0px;
+}
+
+.modal__title {
+  background-color: orange;
+  height: 50px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.checkBtn {
+  background-color: orange;
+  color: white;
+  border: 1px solid orange;
+}
+
+body {
+  font-family: 'Varela Round', sans-serif;
+}
+
+.modal-confirm {
+  color: #636363;
+  width: 400px;
+}
+
+.modal-confirm .modal-content {
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+.modal-confirm .modal-header {
+  border-bottom: none;
+  position: relative;
+}
+
+.modal-confirm h4 {
+  text-align: center;
+  font-size: 26px;
+  margin: 30px 0 -10px;
+}
+
+.modal-confirm .close {
+  position: absolute;
+  top: -5px;
+  right: -2px;
+}
+
+.modal-confirm .modal-body {
+  color: #999;
+}
+
+.modal-confirm .modal-footer {
+  border: none;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 13px;
+  padding: 10px 15px 25px;
+}
+
+.modal-confirm .modal-footer a {
+  color: #999;
+}
+
+.modal-confirm .icon-box {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  z-index: 9;
+  text-align: center;
+  border: 3px solid #f15e5e;
+}
+
+.modal-confirm .icon-box i {
+  color: #f15e5e;
+  font-size: 46px;
+  display: inline-block;
+  margin-top: 13px;
+}
+
+.modal-confirm .btn {
+  color: #fff;
+  border-radius: 4px;
+  background: #60c7c1;
+  text-decoration: none;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  line-height: normal;
+  min-width: 120px;
+  border: none;
+  min-height: 40px;
+  border-radius: 3px;
+  margin: 0 5px;
+  outline: none !important;
+}
+
+.modal-confirm .btn-info {
+  background: #c1c1c1;
+}
+
+.modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+  background: #a8a8a8;
+}
+
+.modal-confirm .btn-danger {
+  background: #f15e5e;
+}
+
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+  background: #ee3535;
+}
+
+.trigger-btn {
+  display: inline-block;
+  margin: 100px auto;
+}
+
+#deleteFavor {
+  position: relative;
+  bottom: 180px;
+  left: 230px;
+  color: gray;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#deleteFavor:hover {
+  color: white;
+}
+
+.MovedetailPage {
+  width: 100%;
+  background-color: white;
+  color: orange;
+  border: 2px solid orange;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.CancelText {
+  position: relative;
+  top: 3px;
+}
+
+.orderDiv {
+  margin-bottom: -70px;
+  margin-top: 10px;
+}
+/*# sourceMappingURL=sh_user_w_myPage.css.map */

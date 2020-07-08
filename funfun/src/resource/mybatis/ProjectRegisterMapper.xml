@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+
+<mapper namespace="funfun.repository.HT_ProjectRegReposi">
+
+	<resultMap type="makerstudio" id="msResult"/>
+	<resultMap type="project" id="proResult"/>
+	<resultMap type="projectOpt" id="proOptResult"/>
+	<resultMap type="projectRisk" id="proRiskResult"/>
+
+	<select id="makerInfo" resultType="makerstudio" parameterType="int">
+	SELECT * FROM MAKER
+	WHERE MEM_CODE = #{MEM_CODE}
+	</select>
+
+
+	<insert id="proCreate" parameterType="project">
+	INSERT INTO PROJECT VALUES (project_seq.nextval, #{maker_code}, '', '', '', '', 0, '', '', '', '', '', '', '정지', 0, 'Y')
+	</insert>
+	
+	<select id="getProjectCode" resultType="int">
+	SELECT project_seq.currval FROM dual
+	</select>
+	
+	<update id="proBasicInfo" parameterType="project">
+	UPDATE PROJECT
+	SET PRO_TITLE = #{pro_title},
+		PRO_TARGET = #{pro_target},
+		PRO_IMAGE = #{pro_image},
+		CATE_TITLE = #{cate_title},
+		PRO_START_DATE = #{pro_start_date},
+		PRO_FINISH_DATE = #{pro_finish_date},
+		PRO_KEYWORD = #{pro_keyword}
+	WHERE PRO_CODE = #{pro_code}
+	</update>
+	
+	<update id="proStory" parameterType="project">
+	UPDATE PROJECT
+		SET PRO_STORY = #{pro_story} 
+	WHERE PRO_CODE = #{pro_code}
+	</update>
+
+	<select id="getProOptionList" resultType="projectOpt" parameterType="int">
+	SELECT * FROM PRO_OPTION
+	WHERE pro_code = #{pro_code}
+	</select>
+
+	<select id="getProOptionListCount" resultType="int" parameterType="int">
+	SELECT count(*) FROM PRO_OPTION
+	WHERE pro_code = #{pro_code}
+	</select>
+
+	<insert id="regProOption" parameterType="projectOpt">
+	INSERT INTO PRO_OPTION VALUES (option_seq.nextval, #{pro_code}, #{opt_price}, #{opt_title}, #{opt_detail}, #{opt_condition}, #{opt_delivery}, #{opt_max}, #{opt_deliver_date})
+	</insert>
+	
+	<update id="uptProOption" parameterType="projectOpt">
+	UPDATE PRO_OPTION
+	SET OPT_PRICE = #{opt_price},
+	 	OPT_TITLE = #{opt_title},
+	 	OPT_DETAIL = #{opt_detail},
+	 	OPT_CONDITION = #{opt_condition},
+	 	OPT_DELIVERY = #{opt_delivery},
+	 	OPT_MAX = #{opt_max},
+	 	OPT_DELIVER_DATE = #{opt_deliver_date}
+	 WHERE OPT_CODE = #{opt_code}
+	</update>
+	
+	<delete id="deleteProOption" parameterType="int">
+	DELETE PRO_OPTION
+	WHERE OPT_CODE = #{opt_code}
+	</delete>
+	
+	<select id="getProRiskList" resultType="projectRisk" parameterType="int">
+	SELECT * FROM RISK
+	WHERE pro_code = #{pro_code}
+	</select>
+	
+	<select id="getProRiskListCount" resultType="int" parameterType="int">
+	SELECT count(*) FROM RISK
+	WHERE pro_code = #{pro_code}
+	</select>
+	
+	<insert id="regProRisk" parameterType="projectRisk">
+	INSERT INTO RISK VALUES (risk_seq.nextval, #{pro_code}, #{risk_detail}, #{risk_title})
+	</insert>
+	
+	<update id="updateProRisk" parameterType="projectRisk">
+	UPDATE RISK
+	SET RISK_TITLE = #{risk_title}, 
+		RISK_DETAIL = #{risk_detail}
+	WHERE RISK_CODE = #{risk_code} 
+	</update>
+
+	<delete id="deleteProRisk" parameterType="int">
+	DELETE RISK
+	WHERE RISK_CODE = #{risk_code}
+	</delete>
+	
+	
+	<update id="projectRegister" parameterType="int">
+	UPDATE project
+	SET PRO_REG_DATE = SYSDATE
+	WHERE PRO_CODE = #{pro_code}
+	</update>
+	
+	<select id="projectInfo" resultType="project" parameterType="int">
+	SELECT * FROM PROJECT
+	WHERE PRO_CODE = #{pro_code}
+	</select>
+
+</mapper>

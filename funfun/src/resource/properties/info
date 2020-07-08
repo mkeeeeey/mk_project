@@ -1,0 +1,9 @@
+# 데이터 베이스 정보. (운영서버, 테스트서버)
+driver=oracle.jdbc.driver.OracleDriver
+url=jdbc:oracle:thin:@34.64.177.9:1521:xe
+user=ezen_team_2
+pass=123123
+
+#파일 업로드 위치
+upload=C:/funfun/funfun/WebContent/z01_upload/
+tmpUpload=C:/funfun/funfun/WebContent/z01_temp/

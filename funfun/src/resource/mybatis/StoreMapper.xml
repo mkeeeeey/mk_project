@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+	
+	<mapper namespace="funfun.repository.KB_RSReposi">
+		<resultMap type="RewardStore" id="Storelist"/>
+		
+		<select id="storeCnt" resultType="int" parameterType="Paging">
+			select count(*) from store a, project b where
+			a.pro_code = b.pro_code and sto_curr = '정상'
+			<if test="sto_title != null and sto_title != ''">
+				and a.sto_title like '%'||#{sto_title} || '%'
+			</if>
+			<if test="cate_title!=null and cate_title!= ''">
+				and b.cate_title like '%' || #{cate_title} ||'%'
+			</if>
+		</select>
+		
+		<select id="storeAdminCnt" resultType="int" parameterType="Paging">
+			select count(*) from store a, project b where
+			a.pro_code = b.pro_code
+			<if test="sto_title != null and sto_title != ''">
+				and a.sto_title like '%'||#{sto_title} || '%'
+			</if>
+			
+		</select>
+		
+		<select id="slist" resultMap="Storelist" parameterType="Paging">
+			select * from (select rownum cnt, c.* from (SELECT a.sto_code, a.sto_title, a.sto_image, a.sto_price, b.CATE_TITLE FROM 
+			store a, PROJECT b WHERE a.PRO_CODE  = b.PRO_CODE and sto_curr = '정상'
+			<if test="sto_title!=null and sto_title!=''">
+				and sto_title like '%'||#{sto_title} || '%'
+			</if>
+			<if test="cate_title!=null and cate_title!= ''">
+				and cate_title like '%' || #{cate_title} ||'%'
+			</if>
+			<if test="store_sort != null and store_sort != ''">
+				order by a.sto_price 
+				<if test='store_sort.equals("up")'>
+					ASC
+				</if>
+				<if test='store_sort.equals("down")'>
+					DESC
+				</if>
+			</if>
+			)c) where cnt between #{start} and #{end}
+			
+		</select>
+		<select id="sdetail" resultType="RewardStore" parameterType="int">
+		SELECT a.sto_code, a.STO_TITLE , a.sto_image,a.sto_detai, b.CATE_TITLE , c.maker_name 
+		FROM store a, project b, maker c WHERE a.PRO_CODE = b.PRO_CODE AND 
+		b.MAKER_CODE = c.MAKER_CODE 
+		AND a.sto_code = #{sto_code}
+
+		</select>
+		<select id="adminList" resultMap="Storelist" parameterType="Paging">
+			select * from (select rownum cnt, c.* from (
+				SELECT a.sto_code, a.STO_TITLE, c.MAKER_NAME , to_char(STO__REG_DATE, 'YYYY-MM-DD') STO__REG_DATE, STO_CURR FROM store a, project b, maker c
+				WHERE a.PRO_CODE = b.PRO_CODE  AND b.MAKER_CODE = c.MAKER_CODE 
+				<if test="sto_title != null and sto_title != '' ">
+					and a.sto_title like '%' || #{sto_title} || '%'
+				</if>
+			)c)where cnt between #{start} and #{end}
+		</select>
+		<select id="adminDetail" resultType="RewardStore" parameterType="int">
+			select sto_code, sto_title, sto_image, sto_detai, sto_curr from store 
+			where sto_code = #{sto_code}
+		</select>
+		<update id="UptCurr" parameterType="RewardStore">
+			update store set sto_curr = #{sto_curr}, sto_sub_date = current_date where sto_code = #{sto_code}
+		</update>
+	</mapper>
+	

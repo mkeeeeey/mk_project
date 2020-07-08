@@ -1,0 +1,23 @@
+	
+	
+	
+	
+	function start(){
+		wsocket = new WebSocket("ws://192.168.4.34:5080/${path}/chat-ws.do");
+		// 입장
+		wsocket.onopen=function(evt){
+			console.log(evt);
+		};
+		// 메시지 받음
+		wsocket.onmessage=function(evt){
+			data = evt.data;
+			show += data;
+			$(".sc-message-item").text(show);
+			}
+		};
+		// 종료
+		wsocket.onclose=function(){
+			recieveMsg("연결을 종료했습니다.");
+		};
+
+		

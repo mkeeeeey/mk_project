@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<mapper namespace="funfun.repository.Sw_AdminMemberDao">
+	<resultMap type="AdminMember" id="AdminMemberResult"/>
+	<!-- int AdminMemberCnt() 총 데이터 건수 -->
+	<select id="AdminMemberCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE 1=1
+	</select>
+	
+	
+	<!-- ArrayList<AdminMember> list(Paging sch) -->
+	<select id="list" resultMap="AdminMemberResult" parameterType="paging">
+		SELECT *
+		FROM (SELECT rownum cnt,a.*,b.maker_code
+			  FROM MEMBER a, maker b
+	  			WHERE a.mem_code = b.MEM_CODE(+)
+			  ORDER BY a.mem_code)
+		WHERE cnt BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	<!-- AdminMember detail(int mem_code) -->
+	<select id="detail" resultType="AdminMember" parameterType="int">
+		select a.*, b.MAKER_CODE 
+		FROM MEMBER a, MAKER b
+		WHERE a.MEM_CODE = b.MEM_CODE(+)
+		and a.MEM_CODE = #{mem_code} 
+	</select>
+	<!-- void update(AdminMember upt) -->
+	
+	<update id="update" parameterType="AdminMember">
+		UPDATE MEMBER
+		SET mem_curr = #{mem_curr}
+		WHERE mem_code = #{mem_code}
+	</update>
+	
+	<update id="update2" parameterType="AdminMember">
+		UPDATE MEMBER
+		SET mem_curr = null
+		WHERE mem_code = #{mem_code}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+

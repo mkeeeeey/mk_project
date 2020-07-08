@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&display=swap');
+*{
+    box-sizing: border-box;
+}
+
+#sto_Main_Info_Div{
+    width:100%;
+    height:300px;
+    margin-top:5%;
+}
+
+#sto_Image_Div{
+    width:65%;
+    height:100%;
+    float:left;
+}
+
+#sto_Title_Div{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 800;
+    font-size:20pt;
+    margin-top:5%;
+}
+
+#sto_pay_Div{
+    float:left;
+    width:35%;
+    height:100%;
+    border: 1px solid black;
+}
+
+.sto_menu_a{
+    display: block;
+    padding: 16px 17px;
+    height: 48px;
+    line-height: 16px;
+    color: rgba(0,0,0,.84);
+    font-size: 15px;
+}
+
+.sto_menu_li{
+    list-style:none;
+    text-align: center;
+    float:left;
+}
+
+
+
+.sto_menu_ul{
+    transition-property: -webkit-transform;
+    transition-timing-function: cubic-bezier(.18,.35,.56,1);
+    margin: 0 auto auto 0;
+    width: 100%;
+    max-width: 1000px;
+    height: 73px;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: hidden;
+    white-space: nowrap;
+    text-align: center;
+    display: block;
+
+}
+
+#sto_menu_Div{
+  position: sticky;
+    top: 70px;
+    z-index: 99;
+    margin-bottom: 0;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,.08);
+    height: 48px;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: hidden;
+    text-align: center;
+    background: hsla(0,0%,100%,.95);
+    padding-left:38%;
+    padding-right:38%;
+}
+
+#maker_name_Div{
+    width:100%;
+    height:60px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 800;
+    font-size:16pt;
+    text-align: left;
+    padding-left:2%;
+    margin-top:1.5%;
+}
+
+#option_title{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 800;
+    font-size:16pt;
+}
+
+#option_Div{
+    padding-left:2%;
+    width:100%;
+    height:60px;
+}
+
+#option_select{
+    width: 300px;
+    height:40px;
+    margin-left:3%;
+    text-align: center;
+}
+
+option{
+    text-align:center;
+}
+
+#option_cnt_title{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 800;
+    font-size:16pt;
+}
+
+#option_cnt_div{
+    width:100%;
+    height:60px;
+    padding-left:1.5%;
+}
+#cnt_input{
+    width: 300px;
+    height:40px;
+    margin-left:3%;
+}
+
+#option_price_Div{
+    width:100%;
+    height:40px;
+    text-align:right;
+    padding-right:1.5%;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 800;
+    font-size:16pt;
+    color:rgb(255,128,0);
+}
+
+#pay_Btn_Div{
+    width:100%;
+    height:60px;
+    text-align:center;
+}
+
+
+#Pay_Btn{
+    width:90%;
+    height:50px;
+    background-color: rgb(255,128,0);
+    color:white;
+    border:0;
+}
+
+#sto_Story_Div{
+    width: 100%;
+    margin-top:2%;
+}
+
+#sto_Story_Title{
+    width:100%;
+    height:40px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 800;
+    font-size:16pt;
+    border-bottom:1px solid #EaEaEa;
+    
+}
+
+#sto_QnA_Div{
+    width:100%;
+    margin-top:2%;
+}
+
+#sto_QnA_Title{
+    width:100%;
+    height:60px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 800;
+    font-size:16pt;
+    border-bottom:1px solid #EaEaEa; 
+}
+
+#pagination_Div{
+    text-align:center;
+}
+
+.title_td{
+    display:inline-block;
+    width:300px;
+    padding-left:25%;
+    padding-right:25%;
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left:20px;
+    text-align:left;
+}
+
+th{
+    text-align:center;
+}
+
+.hide{
+    display: none;
+}
+
+.qnaShow{
+    display: show;
+}
+
+.qna_answer{
+    color:#0B7903;
+}
+
+.qna_answer_pre{
+    width:90%;
+    margin-left:10%;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 800;
+    font-size: 12pt;
+}

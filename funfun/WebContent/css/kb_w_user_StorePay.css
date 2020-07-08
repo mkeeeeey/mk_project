@@ -1,0 +1,51 @@
+*{
+    box-sizing: border-box;
+}
+
+.store_pay_Title{
+    border-bottom : 4px solid gray;
+    padding-bottom: 20px;
+}
+
+.store_table{
+    width:100%;
+    border-bottom:1px solid black;
+    border-top:1px solid black;
+}
+
+.store_tr{
+    border-bottom:0.5px dotted black;
+}
+
+.store_th{
+    width:20%;
+    padding:1%;
+    border-right: 0.5px dotted black;
+    background-color:rgb(255,128,0);
+    color:white;
+}
+.store_td{
+    width:100%;
+    padding:1%;
+}
+
+.inputs{
+    width:80%;
+    height:25px;
+    padding:1%;
+}
+
+.pay_btn_Div{
+    width:100%;
+    height:80px;
+    text-align:center;
+    margin-top:10px;
+}
+
+#pay_btn{
+    width:250px;
+    height:60px;
+    background-color: rgb(255,128,0);
+    color:white;
+    border:0;
+}

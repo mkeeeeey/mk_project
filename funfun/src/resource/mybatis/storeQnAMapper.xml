@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+	
+<mapper namespace="funfun.repository.KB_QnAReposi">
+	<resultMap type="storeQnA" id="QnAList"/>
+	
+	<select id="qnaCnt" resultType="int" parameterType="int">
+		SELECT count(*) FROM qna WHERE 1=1 AND sto_code = #{sto_code}
+	</select>
+	
+	<select id="qnaList" resultMap="QnAList" parameterType="paging">
+		select * from (select rownum cnt, c.* from
+		(SELECT a.qna_code, a.sto_code, a.QNA_DETAIL , to_char(a.QNA_REG_DATE, 'YYYY-MM-DD') QNA_REG_DATE, 
+		a.qna_open, a.QNA_ANS , a.QNA_ANS_REG_DATE , a.QNA_CHK ,
+		 b.MEM_NAME FROM qna a, MEMBER b WHERE a.MEM_CODE = b.MEM_CODE
+		AND a.STO_CODE = #{sto_code} order by a.qna_code desc) c) where cnt between #{start} and #{end}
+	</select>
+	
+	<insert id="qnaInsert" parameterType="storeQnA">
+		INSERT INTO qna (qna_code, STO_CODE , MEM_CODE , QNA_DETAIL , QNA_REG_DATE ,QNA_OPEN )
+		 values(qna_seq.nextval, #{sto_code}, #{mem_code}, #{qna_detail}, current_date,
+		#{qna_open})
+	</insert>
+</mapper>

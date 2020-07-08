@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias alias="makerstudio" type="funfun.vo.MakerStudio"/>
+		<typeAlias alias="RewardStore" type="funfun.vo.RewardStore"/>
+		<typeAlias alias="notice" type="funfun.vo.Notice"/>
+		<typeAlias alias="faq" type="funfun.vo.Faq"/>
+		<typeAlias alias="rtqna" type="funfun.vo.Rtqna"/>
+		<typeAlias alias="paging" type="funfun.vo.Paging"/>
+		<typeAlias alias="project" type="funfun.vo.Project"/>
+		<typeAlias alias="favor" type="funfun.vo.Favor"/>
+		<typeAlias alias="parti" type="funfun.vo.PartiFunding"/>
+		<typeAlias alias="trans" type="funfun.vo.TranLookUp"/>
+		<typeAlias alias="mypageinfo" type="funfun.vo.MyPageInfo"/>
+		<typeAlias alias="storeOption" type="funfun.vo.storeOption"/>
+		<typeAlias alias="projectOpt" type="funfun.vo.ProOption"/>
+		<typeAlias alias="projSch" type="funfun.vo.ProjectSch"/>
+		<typeAlias alias="storeQnA" type="funfun.vo.storeQnA"/>
+		<typeAlias alias="storeOrder" type="funfun.vo.storeOrder"/>
+		<typeAlias alias="report" type="funfun.vo.Report"/>
+		<typeAlias alias="funding" type="funfun.vo.Funding"/>
+		<typeAlias alias="projectRisk" type="funfun.vo.ProRisk"/>
+		<typeAlias alias="storePay" type="funfun.vo.storePay"/>
+		<typeAlias alias="userprofile" type="funfun.vo.UserProfile"/>
+		<typeAlias alias="inquiry" type="funfun.vo.ProjectQna"/>
+		<typeAlias alias="store" type="funfun.vo.Store"/>
+		<typeAlias alias="Admin" type="funfun.vo.Admin"/>
+		<typeAlias alias="AdminMember" type="funfun.vo.AdminMember"/>
+		<typeAlias alias="AdminMaker" type="funfun.vo.AdminMaker"/>
+		<typeAlias alias="balance" type="funfun.vo.Balance"/>
+		<typeAlias alias="deposit" type="funfun.vo.Deposit"/>
+		<typeAlias alias="proStoOptionJoin" type="funfun.vo.ProStoOptionJoin"/>
+		<typeAlias alias="wi" type="funfun.vo.Withdrawl"/>
+		<typeAlias alias="psh" type="funfun.vo.Paging_sh"/>
+		
+	</typeAliases>
+	<mappers>
+		<mapper resource="resource/mybatis/MSMapper.xml"/>
+		<mapper resource="resource/mybatis/ProjectRegisterMapper.xml"/>
+		<mapper resource="resource/mybatis/StoreMapper.xml"/>
+		<mapper resource="resource/mybatis/Sw_NoticeMapper.xml"/>
+		<mapper resource="resource/mybatis/Sw_FaqMapper.xml"/>
+		<mapper resource="resource/mybatis/Sw_RtqnaMapper.xml"/>
+		<mapper resource="resource/mybatis/loginMapper.xml" />
+		<mapper resource="resource/mybatis/mypageMapper.xml" />
+		<mapper resource="resource/mybatis/FundingMapper.xml" />
+		<mapper resource="resource/mybatis/storeOptionMapper.xml"/>
+		<mapper resource="resource/mybatis/storeQnAMapper.xml"/>
+		<mapper resource="resource/mybatis/mailAuthMapper.xml" />
+		<mapper resource="resource/mybatis/storePayMapper.xml"/>
+		<mapper resource="resource/mybatis/userProfileMapper.xml" />
+		<mapper resource="resource/mybatis/HT_StoreManageMapper.xml" />
+		<mapper resource="resource/mybatis/secessionMapper.xml" />
+		<mapper resource="resource/mybatis/Sw_AdminMapper.xml" />
+		<mapper resource="resource/mybatis/Sw_AdminMemberMapper.xml" />
+		<mapper resource="resource/mybatis/Sw_AdminMakerMapper.xml" />
+		<mapper resource="resource/mybatis/secessionMapper.xml" />
+		<mapper resource="resource/mybatis/accountMapper.xml" />
+		<mapper resource="resource/mybatis/adminProjectMapper.xml"/>
+		<mapper resource="resource/mybatis/maincontentsMapper.xml" />
+	</mappers>
+ 
+</configuration>

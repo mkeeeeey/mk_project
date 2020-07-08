@@ -1,0 +1,118 @@
+@charset "UTF-8";
+/* Project List */
+/* 분류 */
+	.justify-content-center{-ms-flex-pack:center!important; justify-content:center!important;}
+	.nav{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;padding-left:0;margin-bottom:0;list-style:none;}
+
+/* 카테고리 */
+	.project-category{text-align:center; margin-top:50px;}
+	.categoryList{text-align:center; width:120px; display:inline-block; cursor:pointer;}
+	.categoryList img{height:100px;}
+
+/* 정렬 */
+	.ProjectListHead_bar {display: block;position: relative;margin: 0 auto; border-top: 0; padding-right: 0; padding-bottom: 8px; padding-left: 0; width: 100%; text-align: right;
+	 box-sizing: border-box; margin-bottom:20px; margin-top:40px;}
+	.ProjectListHead_bar a{color:#FF9500;}
+	.ProjectListHead_title {display: block; position: absolute;  left: 0;top:-30px; line-height: 32px; font-size: 24px; font-weight: 700;}
+	.ProjectListHead_search {display: inline-block; margin-right: -5px; border-right: 0; width: auto; vertical-align: bottom;position: relative;}
+	.ProjectListHead_search label {margin-bottom: 9px;}
+	.ProjectListHead_search input {line-height: 1.1;width: 190px;border: 0;height: 36px;transition: background 0s ease-out; padding-left: 0; padding-right: 0;border-radius: 0;
+    font-size: 14px;padding: .4375rem 0; color: #495057;position: absolute; right: 160px;;bottom: 1px;}
+	.ProjectListHead_sort {display: inline-block; margin-left: 24px; box-shadow: none; padding-right: 18px; padding-left: 0; min-width: auto; height: 36px; vertical-align: bottom; 
+	line-height: 36px; position: relative; z-index: 1; white-space: nowrap; box-sizing: border-box;}
+	.select-sort {color: rgba(0,0,0,.87); font-size: 15px; margin-bottom:5px;}
+	.select-sort select {cursor:pointer; display:inline-block; position:relative; font-size:16px;height:40px;  padding-left: 0;z-index: 10; border:none;}
+	
+/* 리스트 */
+	.item{height:322px; cursor:pointer;}
+	.proj-info{height:116px;}
+	.projectList-item{height:302px;}
+	.thumbnail img {height:180px; width:320px}
+	.ProjectList-title{color: black; padding-top: 10px; font-weight: bold; font-size: 13px; text-align: justify;}
+	.maker-info{}
+	.ProjectList-maker{font-size: 12px;color:#90949c;font-weight:800; position: absolute; bottom: 51px; width:150px;height: 17px; overflow:hidden;white-space: nowrap; text-overflow:ellipsis;}
+	.ProjectList-rate{color: orange; font-weight: bold; font-size: 15px; position: absolute; bottom: 26px;left: 27px;}
+	.ProjectList-date{font-weight: bold; font-size: 13px; position: absolute; bottom: 26px;color:#90949c;right: 26px;}
+	
+/* 상세보기 */
+	.project-basic{display:inline-block;}
+	.project-title{text-align:center;}
+	.projectDetail_img{margin:50px 10px;}
+	.projectDetail_img img{width:678px; height:373px;display: block;}
+	.project-state{display:inline-block; vertical-align: top; -webkit-font-smoothing: antialiased;padding-top: 50px; margin-bottom: 15px; margin-left: 28px;}
+	.state-box {width: 100%;} 
+	.state-box p {margin-bottom: 25px;color: #4a4a4a;line-height: 36px;}
+	.remainday {font-size: 28px;line-height: 36px;font-weight: 500;color: #4a4a4a;}
+	.btn-funding {width: 100%; margin-bottom: 10px; padding-top: 10px;}
+	.project-report{margin-top: 20px;margin-bottom: 20px; border: 1px solid rgba(144,148,156,.3);padding: 12px 16px;}
+	.project-maker{width:100%; padding: 10px 10px 20px;}
+	.project-opt{text-align:right;margin-bottom: 100px;}
+	.project-opt-info{margin:10px 0;}
+	.opt-cont{text-align:left; padding:20px 10px 20px 30px;}
+	.report-modal{width:100%;}
+	.report-modal tr th, td {padding: 10px 5px;}
+	.report-cont{resize: none;}
+	.project-story img{width:100%;}
+	.reward-qty {margin-bottom: 5px; font-size: 12px; line-height: 21px; color: #ff9500;}
+	.soldout {color: #f89ba6;}
+	input[type=file]{display:inline;}
+	.project-inquiry{width:100%; padding: 15px;}
+	.inquiry-title{width: 100%; height: 60px; font-family: 'Nanum Gothic', sans-serif; font-weight: 800; font-size: 16pt; }
+	.title_td {display: inline-block; width: 300px; padding-left: 25%; padding-right: 25%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; padding-left: 40px;}
+	th{text-align:center;}
+	.hide{display: none;}
+	.qnaShow{display: show;}
+	.qna_answer{color:#0B7903;}
+	.qna_answer_pre{width:90%; margin-left:10%; font-family: 'Nanum Gothic', sans-serif; font-weight: 800;  font-size: 12pt;}
+		
+
+/* 옵션선택 */
+	.funding-noti{margin-bottom: 24px;line-height: 1.29;font-size: 28px;font-weight: 400;}
+	.noti-check {border: 1px solid #f0f2f5; margin: 12px auto 0; width:1000px;}
+	.noti-check .icons{left: 10px; top: 5px;}
+	.icons span{left: 10px; top: 5px;}
+	.noti-check label {margin-right: 0; padding: 12px; color: #babdc0; font-size: 17px;}
+	.noti-check label input[type=checkbox]{margin-top: -4px;border-radius: 50%;border-color: #e6eaed; width: 22px;height: 22px; margin-right: 8px;}
+	.noti-ck{position:absolute; left:40px; top: 3px;}
+	.checkbox.checked, .radio.checked {color: #ff9500 !important;}
+	.checked .second-icon{color: #ff9500 !important;}
+	.noti-detail{border: 1px solid #f0f2f5;border-top: 0; padding: 16px;width:1000px; margin:0 auto;}
+	.funding-opt{margin-bottom: 42px;}
+	.funding-opt h3 {margin-bottom: 28px;}
+	.top-area {margin-bottom: 20px; margin-top: 80px;}
+	.sub-text {margin-bottom: 5px;padding: 0 5px; font-size: 14px; font-weight: 500; line-height: 18px;}
+	.check-noti{margin: 12px auto 0; width:1000px; color:#888888;font-size: 13px; font-weight: 600;}
+	ul {list-style: none;padding:0;}
+	.opt-list{width: 100%; margin-bottom: 5px;padding:0 10px;}
+	.opt-box {padding: 15px; background: #f9f9f9; border: 1px solid #fff; border-radius: 5px;}
+	.next-step{width:250px; margin:20px auto;}
+	
+	
+/* 펀딩하기 */
+	.funding-wrap{margin:20px auto;width: 900px;}
+	.order-list {border-top: 1px solid #666;}
+	.order-cont {padding: 15px; border-bottom: 1px solid #e4e4e4;}
+	.fund-tit {margin-bottom: 8px;font-size: 14px;line-height: 17px; color: #ff9500;}
+	.text {margin-bottom: 20px; font-size: 12px; line-height: 16px; color: #686868;}
+	.option {position: relative; font-size: 12px; line-height: 15px; padding-left: 28px;}
+	.option-cont { position: absolute;left: 0;}
+	.sum {font-size: 14px; line-height: 24px; font-weight: 500; text-align: right;}
+	.sum em { padding-right: 25px;}
+	.balance {background: #f9f9f9; border-top: 1px dashed #666;}
+	.order-info{display:table; width:100%}
+	.order-infodt {display: table-cell; width: 140px; padding: 7px 0 7px 15px; font-size: 14px; font-weight: 900; box-sizing: border-box;}
+	.order-infodd {display: table-cell; padding: 15px 15px 15px 0; font-size: 14px; text-align: right;width:760px;}
+	.conf-info{padding: 10px 0; background: #ececec;}
+	.total{color: #ff9500;}
+	.payment-noti{width:900px;margin:10px auto;}
+	.payment-noti ul{color: rgba(0, 0, 0, 0.54);list-style: none; padding: 0 15px;}
+	.mem-info{padding: 15px 12px 24px 12px; background: #EEEDE9; border-radius: 3px;}
+	.mem-info div{margin-bottom: 15px;}
+	.mem-info-tit{margin-bottom: 8px; font-size: 14px;}
+	.mem-info-txt{line-height: 36px; font-size: 14px; color: #9B9B9B;}
+	.delivery-list {border-top: 1px solid #e4e4e4;}
+	.deliver-info{padding:20px 100px 43px 10px; border-bottom: 1px solid #e4e4e4;}
+	.deliver-tit{margin: 5px 0; font-size: 14px;font-weight: 900;}
+	.deliver-post{width: 100px; display: inline-block; margin-right: 20px;}
+	.find-post{width: 150px; display: inline-block;}
+	.funding-btn {width:250px; margin:50px auto;}

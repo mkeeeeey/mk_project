@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<mapper namespace="funfun.repository.sh_accountReposi">
+
+ 	<resultMap type="balance" id="balanceResult"/>
+ 	<select id="blist" resultMap="balanceResult" 
+ 		parameterType="psh">
+		<![CDATA[ 
+		SELECT * 
+		from(
+				select ROW_NUMBER() OVER(order by b.BAL_DATE desc) cnt,
+				m.MEM_EMAIL memEmail, 
+				b.BAL_TYPE balType, 
+				b.BAL_HIS balHis, 
+				b.BAL_AMOUNT balAmount, 
+				b.BAL_DATE balDate 
+				from balance b
+				LEFT JOIN MEMBER m 
+				ON b.MEM_CODE = m.MEM_CODE 
+				WHERE m.MEM_EMAIL = #{memEmail} 
+				ORDER BY b.BAL_DATE DESC
+			)
+				WHERE cnt BETWEEN #{start} AND #{end}
+		]]>	
+ 	</select>
+ 	
+ 	<resultMap type="userprofile" id="userprofileResult"/>
+ 	<select id="clist" resultMap="userprofileResult" 
+ 		parameterType="userprofile">
+		SELECT mem_balance memBalance, MEM_ACCOUNT memAccount, MEM_BANK memBank, MEM_NAME memName FROM MEMBER WHERE MEM_EMAIL = #{memEmail}
+ 	</select>
+ 	
+ 	<insert id="uptDepoBalanceTb" parameterType="userprofile">
+ 	INSERT INTO balance values(balance_seq.nextval,(SELECT MEM_CODE FROM MEMBER WHERE MEM_EMAIL = #{memEmail}),'입금','deposit',#{chargeQueryAmount},current_date)
+ 	</insert>
+ 	
+ 	<insert id="uptWithBalanceTb" parameterType="userprofile">
+ 	INSERT INTO balance values(balance_seq.nextval,(SELECT MEM_CODE FROM MEMBER WHERE MEM_EMAIL = #{memEmail}),'출금','withdrawl',#{minusBal},current_date)
+ 	</insert>
+ 	
+ 	<update id="chgAccountInfo" parameterType="userprofile">
+ 	UPDATE member
+	SET mem_bank = #{memBank}, mem_account=#{memAccount}
+	WHERE MEM_EMAIL = #{memEmail}
+ 	</update>
+	
+	<insert id="insDeposit" parameterType="deposit">
+	    INSERT INTO DEPOSIT (RD_CODE,MEM_CODE,RD_AMOUNT,RD_DATE,RD_CURR) 
+		values(deposit_seq.nextval,(SELECT MEM_CODE FROM MEMBER WHERE MEM_EMAIL = #{memEmail}),#{chargeQueryAmount,jdbcType=NUMERIC},current_date,'입금완료')
+ 	</insert>
+ 	
+ 	<insert id="insWithdrawl" parameterType="wi">
+	    INSERT INTO WITHDRAWL values(WITHDRAWL_seq.nextval,
+		(SELECT mem_code FROM MEMBER WHERE MEM_EMAIL = #{memEmail}),
+		#{minusBal},current_date,'출금완료')
+ 	</insert>
+
+ 	<resultMap type="deposit" id="depositResult"/>
+ 	<select id="rdlist" resultMap="depositResult" parameterType="psh">
+		<![CDATA[ 
+		SELECT * 
+		from(
+				select ROW_NUMBER() OVER(order by d.RD_DATE desc) cnt,
+				m.MEM_EMAIL memEmail, 
+				d.rd_amount chargeQueryAmount, 
+				d.RD_DATE rddate, 
+				d.RD_CURR curr
+				from DEPOSIT d
+				LEFT JOIN MEMBER m 
+				ON m.MEM_CODE = d.MEM_CODE 
+				WHERE m.MEM_EMAIL = #{memEmail} 
+				ORDER BY d.RD_DATE DESC
+			)
+				WHERE cnt BETWEEN #{start} AND #{end}
+		]]>	
+ 	</select>
+ 	
+ 	<select id="totCnt" resultType="int" parameterType="psh">
+ 		select count(*) from WITHDRAWL		
+ 	</select> 
+ 	
+ 	<resultMap type="wi" id="wiResult"/>
+ 	<select id="wilist" resultMap="wiResult" parameterType="psh">
+		<![CDATA[ 
+		SELECT * 
+		from(
+				select ROW_NUMBER() OVER(ORDER BY w.WI_DATE DESC) cnt,
+				w.WI_CURR wiCurr,
+				w.wi_date wiDate, 
+				w.wi_amount minusBal, 
+				m.MEM_EMAIL memEmail
+				from WITHDRAWL w
+				LEFT JOIN MEMBER m 
+				ON w.MEM_CODE = m.MEM_CODE 
+				WHERE m.MEM_EMAIL = #{memEmail} 
+				ORDER BY w.WI_DATE DESC
+			)
+				WHERE cnt BETWEEN #{start} AND #{end}
+		]]>	
+	</select>
+ 	
+ 	<update id="chargeQuery" parameterType="userprofile">
+	    UPDATE MEMBER
+	    <if test="#{memBalance} != null">
+		SET MEM_BALANCE = MEM_BALANCE + #{chargeQueryAmount}
+		</if>
+		<if test="#{memBalance} == null">
+		SET MEM_BALANCE = 0 + #{chargeQueryAmount}
+		</if>
+		WHERE MEM_EMAIL = #{memEmail}
+ 	</update>
+ 	
+ 	<update id="minusBal" parameterType="userprofile">
+	    UPDATE MEMBER
+		SET MEM_BALANCE = MEM_BALANCE - #{minusBal}
+		WHERE MEM_EMAIL = #{memEmail}
+ 	</update>
+ 	
+</mapper>	

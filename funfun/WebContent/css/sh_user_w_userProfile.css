@@ -1,0 +1,212 @@
+.profile__title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.profile__img {
+  border: 1px soild black;
+  border-radius: 5px;
+  width: 70px;
+  height: 70px;
+  background-color: white;
+}
+
+.profile__img--title {
+  font-size: 15px;
+  color: gray;
+}
+
+.profile__img-edit {
+  font-size: 13px;
+  color: gray;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.profile__innertitle {
+  font-size: 14px;
+  font-weight: bold;
+  color: gray;
+  margin-bottom: 5px;
+}
+
+.profile__innertitle--subtitle {
+  font-size: 13px;
+}
+
+.profile__input {
+  width: 100%;
+  height: 35px;
+  font-size: 15px;
+}
+
+.profile__btn {
+  height: 35px;
+  width: 100px;
+  border: 1px solid orange;
+  background: orange;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+.profile__cancle {
+  background-color: white;
+  border: 2px solid gray;
+  color: gray;
+  width: 50%;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.profile__cancle:hover {
+  background-color: gray;
+  color: white;
+}
+
+.profile__submit {
+  background-color: white;
+  border: 2px solid orange;
+  color: orange;
+  width: 50%;
+  padding: 10px;
+  font-size: 14px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.profile__submit:hover {
+  background-color: orange;
+  color: white;
+}
+
+input, select {
+  border-radius: 3px;
+  border: 1px solid gray;
+  cursor: pointer;
+}
+
+label {
+  cursor: pointer;
+}
+
+.chargeBtn {
+  float: right;
+  font-size: 14px;
+  margin-top: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.accountMain {
+  margin-top: 200px;
+}
+
+.p-icon {
+  margin-bottom: 13px;
+}
+
+label {
+  font-size: 14px;
+  padding-left: 5px;
+}
+
+.confirmInput {
+  border: none;
+}
+
+.confirmInputDiv {
+  border: 1px solid #D8D8D8;
+  width: 60%;
+  height: 50px;
+  padding-left: 5px;
+}
+
+.confirmInputDiv > button {
+  height: 40px;
+}
+
+* {
+  outline: none;
+}
+
+.titleNav {
+  height: 60px;
+  background-color: #ff9705;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  width: 100%;
+}
+
+.innerNav {
+  height: 60px;
+  font-size: 14px;
+  color: #424242;
+  background-color: white;
+  width: 100%;
+}
+
+.navText {
+  position: relative;
+  top: 19px;
+  padding-left: 13px;
+}
+
+.txinner {
+  color: #383737;
+}
+
+.txinner:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.chargInfo > td {
+  font-size: 12px;
+  color: gray;
+  line-height: 30px;
+}
+
+.secondTd {
+  text-align: right;
+  width: 440px;
+  font-size: 14px;
+}
+
+.chargInfo {
+  line-height: 25px;
+  margin-bottom: -10px;
+}
+
+.moneyTable {
+  line-height: 26px;
+}
+
+.ifText {
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  top: 5px;
+}
+
+#chargeM, #withdrawlM, #usingM, #infoM {
+  padding-top: 9px;
+  padding-bottom: 7px;
+}
+
+#chargeM {
+  padding-top: 9px;
+  padding-bottom: 7px;
+  background-color: rgba(255, 151, 5, 0.5);
+}
+
+.emptyMsgCharge {
+  font-size: 18px;
+  color: #5D6D7E;
+  font-weight: bold;
+  margin-left: 130px;
+  margin-top: 130px;
+}
+/*# sourceMappingURL=sh_user_w_userProfile.css.map */

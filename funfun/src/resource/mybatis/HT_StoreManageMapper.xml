@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+
+<mapper namespace="funfun.repository.HT_StoreManageReposi">
+	<resultMap type="storeQnA" id="qnaResult"/>
+	<resultMap type="storeOrder" id="storeOrderResult"/>
+	<resultMap type="store" id="storeResult"/>
+	<resultMap type="projectOpt" id="proOptResult"/>
+	<resultMap type="storeOption" id="stoOptResult"/>
+	<resultMap type="proStoOptionJoin" id="proStoOptionJoinResult"/>
+	
+	
+	<select id="getStoreInfo" resultMap="storeResult" parameterType="int">
+	SELECT * FROM STORE
+	WHERE STO_CODE = #{sto_code}
+	</select>
+	
+	<select id="getStoOptCnt" resultType="int" parameterType="int">
+	SELECT COUNT(*) FROM STORE_OPTION
+	WHERE STO_CODE = #{sto_code}
+	</select>
+	
+	<select id="storeQnAList" resultMap="qnaResult" parameterType="int">
+	SELECT a.*, b.mem_name
+	FROM QNA a, "MEMBER" b
+	WHERE a.STO_CODE = #{sto_code}
+	AND b.MEM_CODE = a.MEM_CODE
+	</select>
+
+	<update id="storeQnAAnsReg" parameterType="storeQnA">
+	UPDATE QNA
+	SET QNA_ANS = #{qna_ans},
+		QNA_ANS_REG_DATE = sysdate
+	WHERE QNA_CODE = #{qna_code}
+	</update>
+	
+	<select id="orderList" resultMap="storeOrderResult" parameterType="int">
+	SELECT a.*, b.MEM_NAME, b.MEM_EMAIL 
+	FROM STORE_ORDER a, "MEMBER" b
+	WHERE STO_OPT_CODE
+	IN (SELECT STO_OPT_CODE FROM STORE_OPTION
+	WHERE STO_CODE = #{sto_code})
+	AND b.MEM_CODE = a.MEM_CODE
+	</select>
+	
+	
+	<insert id="storeOpenStart" parameterType="store">
+	INSERT INTO STORE VALUES (store_seq.nextval, '', '', #{pro_code}, '', '', '', '정지', '', '')
+	</insert>
+	
+	<select id="getStoreCode" resultType="int">
+	SELECT store_seq.currval FROM dual
+	</select>
+	
+	<update id="storeBasicInfoReg" parameterType="store">
+	UPDATE STORE 
+	SET STO_TITLE = #{sto_title},
+		STO_DETAI = #{sto_detai},
+		STO_IMAGE = #{sto_image},
+		STO_CATE = #{sto_cate},
+		STO_PRICE = #{sto_price}
+	WHERE STO_CODE = #{sto_code}
+	</update>
+	
+	<select id="getProOptList" resultType="projectOpt" parameterType="int">
+	SELECT * FROM PRO_OPTION
+	WHERE pro_code = #{pro_code}
+	</select>
+	
+	<select id="getProStoOptionJoinList" resultType="proStoOptionJoin" parameterType="int">
+	SELECT a.*, b.*
+	FROM PRO_OPTION a LEFT JOIN STORE_OPTION b
+	ON a.OPT_CODE = b.OPT_CODE
+	WHERE a.PRO_CODE = #{pro_code}
+	</select>
+	
+	<select id="getStoOptList" resultType="storeOption" parameterType="int">
+	SELECT * FROM STORE_OPTION
+	WHERE STO_CODE = #{sto_code}
+	</select>
+	
+	<insert id="stoOptUnitReg" parameterType="storeOption">
+	INSERT INTO STORE_OPTION VALUES (store_option_seq.nextval, #{sto_code}, #{opt_code}, #{sto_opt_price}, #{sto_opt_detail}, '정상')
+	</insert>
+	
+	<update id="stoOptUnitUpt" parameterType="storeOption">
+	UPDATE STORE_OPTION
+	SET STO_OPT_PRICE = #{sto_opt_price},
+		STO_OPT_DETAIL = #{sto_opt_detail}
+	WHERE STO_OPT_CODE = #{sto_opt_code}
+	</update>
+	
+	<delete id="stoOptUnitDelete" parameterType="int">
+	DELETE STORE_OPTION
+	WHERE STO_OPT_CODE = #{sto_opt_code}
+	</delete>
+	
+	<update id="storeOpenRegConfirm" parameterType="int">
+	UPDATE STORE
+	SET STO__REG_DATE = sysdate
+	WHERE sto_code = #{sto_code}
+	</update>
+	
+	
+
+</mapper>

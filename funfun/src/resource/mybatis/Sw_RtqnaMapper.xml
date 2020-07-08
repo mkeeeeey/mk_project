@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<mapper namespace="funfun.repository.Sw_RtqnaDao">
+	<resultMap type="Rtqna" id="RtqnaResult"/>
+	<!-- int totCnt() 총 데이터 건수 -->
+	<select id="rtqnatotCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM rtqna
+		WHERE 1=1
+	</select>
+	
+	<!-- ArrayList<Rtqna> list(Paging sch) -->
+	<select id="list" resultMap="RtqnaResult" parameterType="paging">
+		SELECT *
+		from(
+			SELECT rownum cnt, a.rtQNA_CODE, a.rtqna_detail, a.mem_name, a.rtqna_state, a.mem_code
+			from(
+			SELECT a.*, b.rtqna_detail, c.mem_name
+			FROM rtqna a, (SELECT a.* FROM rtqna_detail a, (SELECT max(rtqna_detail_code) lastqna FROM rtqna_detail
+			GROUP by rtqna_code) b
+			where b.lastqna = a.rtqna_detail_code) b, MEMBER c
+			WHERE a.rtqna_code = b.rtqna_code
+			AND a.mem_code = c.mem_code
+			ORDER BY rtqna_state) a)
+		WHERE cnt BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 채팅방 유무확인 -->
+	<select id="ckrtqna" resultType="int" parameterType="int">
+		select count(*)
+		from rtqna
+		where mem_code = #{mem_code}
+	</select>
+	<select id="rtqna_code" resultType="int" parameterType="int">
+		select rtqna_code
+		from rtqna
+		where mem_code = #{mem_code}
+	</select>
+	<!-- 채팅방 등록 -->
+	<insert id="insertrtqna" parameterType="int">
+		insert into rtqna
+		values (rtqna_seq.nextval,#{mem_code},'확인')
+	</insert>
+	
+	<!-- 채팅 내용 등록 -->
+	<!-- void insert(Rtqna ins) -->
+	<insert id="insert" parameterType="rtqna">
+		<!-- 코드수정 -->
+		INSERT INTO rtqna_detail 
+		values(rtqna_detail_seq.nextval, #{rtqna_code}, current_date, #{rtqna_writer},#{rtqna_detail})
+	</insert>
+	
+	
+	<!-- ArrayList<Rtqna> detail(int mem_code) -->
+	<select id="detail" resultMap="RtqnaResult" parameterType="int">
+		SELECT a.rtqna_code, a.mem_code, a.RTQNA_STATE, b.RTQNA_TIME , b.RTQNA_WRITER , b.RTQNA_DETAIL ,c."name"
+		FROM rtqna a, rtqna_detail b, 
+			(SELECT mem_code "code", mem_name "name" FROM MEMBER 
+			UNION
+			SELECT admin_code, admin_name FROM ADMIN) c
+		WHERE a.rtqna_code = b.RTQNA_CODE
+		and b.RTQNA_WRITER = c."code"
+		AND a.MEM_CODE = #{mem_code}
+		ORDER BY rtqna_time
+	</select>
+	<!-- Rtqna chatdetail(int mem_code) -->
+	<select id="chatdetail" resultType="rtqna" parameterType="int" >
+		SELECT a.rtqna_code, a.mem_code, b.mem_name
+		FROM RTQNA a, member b
+		WHERE a.MEM_CODE = b.MEM_CODE
+		AND a.mem_code = #{mem_code}
+	</select>
+	
+	<!-- 회원입력 : 채팅방 확인 ==> 문의중-->
+	<update id="uptSt1" parameterType="int">
+		update rtqna
+		set rtqna_state = '문의중'
+		where mem_code = #{mem_code}
+	</update>
+	<!-- 관리자 입력 : 채팅방 문의중 ==> 미확인 -->
+	<update id="uptSt2" parameterType="int">
+		update rtqna
+		set rtqna_state = '미확인'
+		where mem_code = #{mem_code}
+	</update>
+	<!-- 회원확인 : 채팅방 미확인 ==> 확인 -->
+	<update id="uptSt3" parameterType="int">
+		update rtqna
+		set rtqna_state = '확인'
+		where mem_code = #{mem_code}
+		and rtqna_state = '미확인'
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+

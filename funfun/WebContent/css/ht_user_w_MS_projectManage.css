@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.sub_gray_font_inact{
+	
+	color:#c8c8c8;
+	}
+	
+.currentTitle{
+	font-size:14px;
+	color:#787878;
+	margin-bottom:5px;
+	font-weight:bold;
+	}	
+
+.currentDetail{
+	font-size:20px;
+	font-weight:900;
+	}	
